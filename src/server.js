@@ -4,5 +4,3 @@ const app = require('./app');
 const port = process.env.API_PORT || 3001;
 
 app.listen(port, () => console.log('ouvindo porta', port));
-
-//iniciando projeto
