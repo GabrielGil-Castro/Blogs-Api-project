@@ -12,12 +12,12 @@ module.exports = {
       primaryKey: true,
       allowNull: false,
       autoIncrement: true,
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
     },
     name: {
       allowNull: false,
-      type: Sequelize.STRING
-    }
+      type: Sequelize.STRING,
+    },
    })
   },
 
