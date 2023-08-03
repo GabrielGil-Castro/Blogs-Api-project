@@ -27,8 +27,8 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING,
-      },
-    })
+      }, 
+    }, {timestamp: false})
   },
 
   down: async (queryInterface, Sequelize) => {

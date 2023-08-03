@@ -24,7 +24,7 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
         references: {
-          model: 'blog_categories',
+          model: 'categories',
           key: 'id'
       }
       },

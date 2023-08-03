@@ -11,6 +11,7 @@ const UserModel = (sequelize, DataTypes) => {
         password: DataTypes.STRING,
         image: DataTypes.STRING,
     }, {
+        timestamps: false,
         tableName: 'users',
         underscored: true,
     });
