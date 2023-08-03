@@ -1,4 +1,4 @@
-const { loginService } = require('../services');
+const { userService } = require('../services');
 const { createToken } = require('../utils/auth');
 
 const isValidFields = (email, password) => email && password;
@@ -11,7 +11,7 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ message: 'Some required fields are missing' });
         }
         
-        const getUser = await loginService.loginByEmail(email);
+        const getUser = await userService.loginByEmail(email);
        console.log(getUser);
 
         if (!getUser) {
@@ -27,6 +27,17 @@ const loginUser = async (req, res) => {
     }
 };
 
+const createUser = async (req, res) => {
+    const data = req.body;
+
+    const newUser = await userService.createNewUser(data);
+
+    if (newUser === 409) {
+        return res.status(409).json({ message: 'User already registred' });
+    }
+};
+
 module.exports = {
     loginUser,
+    createUser,
 };
