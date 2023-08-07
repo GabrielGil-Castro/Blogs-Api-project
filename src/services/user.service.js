@@ -15,7 +15,21 @@ const createNewUser = async (data) => {
     return User.create({ displayName, email, password, image: image || 'any' });
 };
 
+const getAllUsers = async () => {
+    const users = await User.findAll({ attibutes: { exclude: ['password'] } });
+
+    return users;
+};
+
+const getUsersById = async (id) => {
+    const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
+
+    return user;
+};
+
 module.exports = {
     loginByEmail,
     createNewUser,
+    getAllUsers,
+    getUsersById,
 };

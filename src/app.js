@@ -1,5 +1,6 @@
 const express = require('express');
-const routes = require('./routes');
+const { userController } = require('./controllers');
+const { validateUser, validateJWT } = require('./middlewares');
 // ...
 
 const app = express();
@@ -11,8 +12,11 @@ app.get('/', (_request, response) => {
 
 app.use(express.json());
 
-app.use('/login', routes.loginRoutes);
-app.use('/user', routes.userRoutes);
+app.post('/login', userController.loginUser);
+app.post('/user', validateUser, userController.createUser);
+app.get('/user', validateJWT, userController.getUsers);
+app.get('/user/:id', validateJWT, userController.getById);
+
 // ...
 
 // É importante exportar a constante `app`,

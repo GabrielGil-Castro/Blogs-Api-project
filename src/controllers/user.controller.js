@@ -35,9 +35,31 @@ const createUser = async (req, res) => {
     if (newUser === 409) {
         return res.status(409).json({ message: 'User already registred' });
     }
+
+    const payload = { id: newUser.id, email: newUser.email, password: newUser.password };
+    const token = createToken(payload);
+
+    return res.satatus(201).json({ token });
+};
+
+const getUsers = async (req, res) => {
+    const users = await userService.getAllUsers();
+
+    return res.status(200).json(users);
+};
+
+const getById = async (req, res) => {
+    const { id } = req.params;
+    const user = await userService.getUsersById(id);
+
+    if (!user) return res.status(404).json({ message: 'User does not exist' });
+
+    return res.status(200).json(user);
 };
 
 module.exports = {
     loginUser,
     createUser,
+    getUsers,
+    getById,
 };
