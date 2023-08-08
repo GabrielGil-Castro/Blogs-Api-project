@@ -7,18 +7,17 @@ const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
         
+        const getUser = await userService.loginByEmail(email);
+
         if (!isValidFields(email, password)) {
             return res.status(400).json({ message: 'Some required fields are missing' });
         }
-        
-        const getUser = await userService.loginByEmail(email);
-       console.log(getUser);
 
         if (!getUser) {
             return res.status(400).json({ message: 'Invalid fields' });
         }
 
-        const payload = getUser.email;
+        const payload = getUser.dataValues.email;
         const token = createToken(payload);
 
         return res.status(200).json({ token });        
@@ -33,13 +32,18 @@ const createUser = async (req, res) => {
     const newUser = await userService.createNewUser(data);
 
     if (newUser === 409) {
-        return res.status(409).json({ message: 'User already registred' });
+        return res.status(409).json({ message: 'User already registered' });
     }
 
-    const payload = { id: newUser.id, email: newUser.email, password: newUser.password };
+    const payload = { 
+        id: newUser.id, 
+        email: newUser.email, 
+        password: newUser.password,
+    };
+
     const token = createToken(payload);
 
-    return res.satatus(201).json({ token });
+    return res.status(201).json({ token });
 };
 
 const getUsers = async (req, res) => {
