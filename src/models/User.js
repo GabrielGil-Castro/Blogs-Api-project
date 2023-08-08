@@ -18,8 +18,8 @@ const UserModel = (sequelize, DataTypes) => {
 
     User.associate = (models) => {
         User.hasMany(models.BlogPost, {
-            foreignKey: 'userId',
-            as: 'posts',
+            foreignKey: 'user_id',
+            as: 'blog_posts',
         });
     }
     return User;

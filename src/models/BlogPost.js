@@ -17,13 +17,7 @@ const BlogPostModel = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        field: 'user_id',
-        references: {
-          model: 'users',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        foreignKey: true,
       },
       published: {
         type: DataTypes.DATE,
@@ -41,7 +35,7 @@ const BlogPostModel = (sequelize, DataTypes) => {
   
     BlogPost.associate = (models) => {
       BlogPost.belongsTo(models.User,
-        { foreignKey: 'id', as: 'user' });
+        { foreignKey: 'userId', as: 'user' });
     };
   
     return BlogPost;
